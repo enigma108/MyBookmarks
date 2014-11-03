@@ -1,0 +1,168 @@
+Binding Android Simple Listview Using String Array (Part 2)
+In this post I will demonstrate you how you can bind a simple array of String with ListView in android.
+ 
+Two main types of listview in android, Simple Listview and Custom Listview. 
+ 
+Here I explain this simple listview by adding listview widget in XML file. You can also use listview in your project by extending ListActivity.
+ 
+In my future tutorials, I will show you more advance scenarios and layouts that can be achieved using ListView. 
+ 
+There are 3 ways to load data in simple listview.
+        1). Load data using XML.
+        2). Load data using String Array.
+        3). Load data using ArrayList.
+
+The following picture shows output of our Android program.
+ 
+ 
+This simple listview’s code given below.
+   
+1). First create a new Android project 
+For more information, see Create an Android Project with Eclipse.
+ 
+2). Create the following Java class
+Main.java
+package com.gami.listviewstringarray;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class Main extends Activity {
+
+    ListView mylistview;
+    ArrayAdapter<String> listAdapter;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        mylistview = (ListView) findViewById(R.id.listView1);
+
+        final String[] items = { "White", "Black", "Red", "Green", "Yellow",
+                "Blue", "Pink" };
+        // String[] items = new String[]{ "White", "Black", "Red", "Green",
+        // "Yellow" ,"Blue","Pink"};
+
+        listAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, items);
+        mylistview.setAdapter(listAdapter);
+
+        // For ListItem Click
+        mylistview.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                    int position, long arg3) {
+                String s = items[position].toString();
+                Toast.makeText(Main.this, "Selected Color is " + s, 3000).show();
+            }
+        });
+    }
+}
+ 
+3). Create the following layouts
+main.xml 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
+
+</LinearLayout>
+
+ListItem Customization
+
+Now it is time to see how to customize Simple ListView's ListItem. We only have to create a new layout file and use it, instead of the default one. 
+
+In above code you just add one more layout file named: listitem.xml and one littel change in your MainActivity.java class for customize listitem.
+
+Here I explain again complete above code for customize listitem.
+
+The following picture shows output of our Android modified program.
+
+
+
+1). First create a new Android project 
+For more information, see Create an Android Project with Eclipse. 
+ 
+2). Create the following Java class 
+Main.java
+package com.gami.listview_stringarray_customitem;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class Main extends Activity {
+
+    ListView mylistview;
+    ArrayAdapter<String> listAdapter;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        mylistview = (ListView) findViewById(R.id.listView1);
+
+        final String[] items = { "White", "Black", "Red", "Green", "Yellow",
+                "Blue", "Pink" };
+        // String[] items = new String[]{ "White", "Black", "Red", "Green",
+        // "Yellow" ,"Blue","Pink"};
+
+        listAdapter = new ArrayAdapter<String>(this, R.layout.listitem, items);
+        mylistview.setAdapter(listAdapter);
+
+        // For ListItem Click
+        mylistview.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                    int position, long arg3) {
+                String s = items[position].toString();
+                Toast.makeText(Main.this, "Selected Color is " + s, 3000).show();
+            }
+        });
+    }
+}
+ 
+3). Create the following 2 layouts
+main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
+
+</LinearLayout>
+ 
+listitem.xml
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp"
+    android:textSize="32sp"
+    android:textColor="#FFFFFF"
+    android:textStyle="italic"
+    android:background="#F87431">
+</TextView>
